@@ -94,7 +94,7 @@ public:
     // to write neighbors_list_t::iterator previously.
     for (auto it = neighbors.begin(); it != neighbors.end(); it++) {
       if (std::get<0>(*it) == node) {
-	      return std::get<1>(*it);
+	return std::get<1>(*it);
       }
     }
     // Edge does not exist
@@ -105,8 +105,8 @@ public:
   void remove_neighbor(vertex_number_t node) {
     for (auto it = neighbors.begin(); it != neighbors.end(); it++) {
       if (std::get<0>(*it) == node) {
-	      neighbors.erase(it);
-	      break;
+	neighbors.erase(it);
+	break;
       }
     }
   }
@@ -173,7 +173,7 @@ template <class T>
 struct GreaterThanComparer {
    bool operator()(const T& s1, const T& s2)
    {
-       return s1 > s2;
+     return s1 > s2;
    }
 };
 
@@ -217,8 +217,8 @@ public:
   ShortestPath(Graph& graph_, Vertex::vertex_number_t start_, 
 	             Vertex::vertex_number_t end_) : graph(graph_), 
 	             start(start_), end(end_) { 
-	  length_in_nodes = 0;
-	}
+	  length_in_nodes = 0
+  }
 	       
   // Implementation of algorithm from 
   // https://en.wikipedia.org/wiki/Dijkstra's_algorithm	       
@@ -249,29 +249,29 @@ public:
       // check if we got to target
       if (&vertex == target_node)
       {
-	      length_in_nodes = 0;
-	V     Vertex* p = &vertex;
-	      // descend down the path until we get to nullptr
-	      while (p = p->get_previous()) {
-	        length_in_nodes++;
-	      }	
-	      return vertex.get_distance();	
+	length_in_nodes = 0;
+	Vertex* p = &vertex;
+	// descend down the path until we get to nullptr
+	while (p = p->get_previous()) {
+	  length_in_nodes++;
+	}	
+	return vertex.get_distance();	
       }
       
       // for each neighbor of vertex
       for (Vertex::edge_t edge : vertex.get_neighbors()) 
       {
- 	      Vertex::vertex_number_t neighbor_no = std::get<0>(edge);
-	      Vertex& neighbor = graph.get_node(neighbor_no);
-	      // accumulate shortest distance from source
-	      Vertex::distance_t dist = vertex.get_distance() + std::get<1>(edge);
-	      // if found a shorter path (at init — shorter than infinity)
-	      if (dist < neighbor.get_distance() && !neighbor.get_marked()) {
-	        // update everything and add vector to queue
-	        neighbor.set_distance(dist);
-	        neighbor.set_previous(&vertex);
-	        pq.push(std::make_pair(dist, neighbor_no));
-	      }	
+ 	 Vertex::vertex_number_t neighbor_no = std::get<0>(edge);
+	 Vertex& neighbor = graph.get_node(neighbor_no);
+	 // accumulate shortest distance from source
+	 Vertex::distance_t dist = vertex.get_distance() + std::get<1>(edge);
+	 // if found a shorter path (at init — shorter than infinity)
+	 if (dist < neighbor.get_distance() && !neighbor.get_marked()) {
+	   // update everything and add vector to queue
+	   neighbor.set_distance(dist);
+	   neighbor.set_previous(&vertex);
+	   pq.push(std::make_pair(dist, neighbor_no));
+	}	
       }
     }
     
@@ -326,10 +326,10 @@ public:
       ShortestPath path(g, 0, i);
       Vertex::distance_t length = path.path_length();      
       if (length != Vertex::len_infinity) {
-	      total_path_length += length;
-	      total_length_in_nodes += path.get_length_in_nodes();	
+	total_path_length += length;
+	total_length_in_nodes += path.get_length_in_nodes();	
       } else {
-	      number_of_paths -= 1;
+	number_of_paths -= 1;
       }      
     }
     
@@ -370,7 +370,7 @@ private:
     std::random_device randomdevice;
     std::mt19937 generator(randomdevice());
     std::uniform_real_distribution<> distance_distribution(min_distance,
-							                                             max_distance);
+							   max_distance);
     // interval of this distribution is closed: [a,b]
     std::uniform_int_distribution<> node_distribution(0, node_number-1);
     
@@ -384,7 +384,7 @@ private:
       int b = node_distribution(generator);
       // check for an edge between a and b, no loops
       if (a == b || g.has_edge(a, b)) {
-	      continue; // try another edge
+	continue; // try another edge
       }      
       // create undirected edge with random distance
       auto distance = distance_distribution(generator);
